@@ -1,0 +1,15 @@
+plugins {
+//    id 'org.springframework.boot' version '2.3.0.RELEASE'
+    id 'java'
+}
+
+dependencies {
+
+    /* module */
+    compile project(':dao')
+    
+    /* test */
+//    testCompile 'org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE'
+//    compile 'junit:junit:4.12'
+}
+

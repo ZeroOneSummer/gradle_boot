@@ -1,0 +1,68 @@
+
+//构建脚本
+buildscript {
+    //定义
+    ext {
+        springBootVersion = "2.3.0.RELEASE"
+    }
+    //仓库
+    repositories {
+        //本地
+        mavenLocal()
+        //阿里云
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        //java中央
+        jcenter()
+    }
+    //依赖
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+//所有项目
+allprojects {
+    group = 'cn.aurora'
+    version = '1.0-SNAPSHOT'
+}
+
+//子项目
+subprojects {
+    //插件
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'org.springframework.boot'         //springboot插件
+    apply plugin: 'io.spring.dependency-management'  //版本管理插件
+    //JDK
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    //编码
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    //仓库
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        jcenter()
+    }
+    //定义
+    ext {
+        ALIBABA_VERSION = '1.2.49'
+        GSON_VERSION = '2.8.5'
+        COMMONS_VERSION = '3.9'
+        LOMBOK_VERSION = '1.18.12'
+    }
+    //全局依赖
+    dependencies {
+        /* tools */
+        compile "com.alibaba:fastjson:$ALIBABA_VERSION"
+        compile "com.google.code.gson:gson:$GSON_VERSION"
+        compile "org.apache.commons:commons-lang3:${COMMONS_VERSION}"
+        compileOnly "org.projectlombok:lombok:${LOMBOK_VERSION}"
+
+        /* test */
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
+        testCompile "org.projectlombok:lombok:${LOMBOK_VERSION}"
+    }
+}
